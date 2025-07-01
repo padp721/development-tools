@@ -1,0 +1,13 @@
+api:
+  insecure: true
+
+providers:
+  docker:
+    exposedByDefault: false
+  file:
+    filename: /etc/traefik/config.yml
+    watch: true
+
+entrypoints:
+  web:
+    address: ":80"

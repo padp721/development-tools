@@ -1,0 +1,12 @@
+services:
+  traefik:
+    container_name: traefik
+    hostname: traefik
+    image: traefik:v3.3
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config:/etc/traefik

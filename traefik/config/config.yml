@@ -1,0 +1,13 @@
+http:
+  routers:
+    worksheet.portainer:
+      entryPoints:
+        - web
+      rule: "Host(`portainer.worksheet.localhost`)"
+      service: worksheet.portainer
+  
+  services:
+    worksheet.portainer:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:9001"

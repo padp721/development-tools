@@ -1,0 +1,13 @@
+services:
+  casdoor:
+    image: casbin/casdoor:latest
+    container_name: casdoor
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      GIN_MODE: release
+    volumes:
+      - ./volume/conf:/conf
+      - ./volume/logs:/logs
+      - ./volume/files:/files

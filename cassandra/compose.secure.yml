@@ -1,0 +1,16 @@
+services:
+  cassandra:
+    container_name: cassandra
+    hostname: cassandra
+    image: cassandra:4.1.9
+    restart: unless-stopped
+    ports:
+      - "9042:9042"
+    volumes:
+      - data:/var/lib/cassandra/data
+    environment:
+      CASSANDRA_USER: ${CASSANDRA_USER}
+      CASSANDRA_PASSWORD: ${CASSANDRA_PASSWORD}
+
+volumes:
+  data:

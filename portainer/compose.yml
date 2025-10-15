@@ -3,7 +3,7 @@ services:
     container_name: portainer
     hostname: portainer
     image: portainer/portainer-ce:lts
-    restart: always
+    restart: unless-stopped
     ports:
       - "9443:9443"
     volumes:

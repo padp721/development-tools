@@ -1,0 +1,48 @@
+services:
+  headscale:
+    container_name: headscale
+    image: ghcr.io/juanfont/headscale:0.26.1
+    volumes:
+      - ./config:/etc/headscale/  # Configuration files
+      - ./data:/var/lib/headscale # Data persistence
+      - ./run:/var/run/headscale # run
+    command: serve
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    # SETUP USING TRAEFIK
+    # networks:
+    #   - traefik_proxy
+    # labels:
+    #   - "me.tale.headplane.target=headscale"
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.headscale.rule=Host(`headscale.example.com`)"
+    #   - "traefik.http.routers.headscale.tls=true"
+    #   - "traefik.http.routers.headscale.tls.certresolver=letsencrypt"
+    #   - "traefik.http.routers.headscale.entrypoints=websecure"
+    #   - "traefik.http.services.headscale.loadbalancer.server.port=8080"
+
+  headplane:
+    image: ghcr.io/tale/headplane:0.6.0
+    container_name: headplane
+    restart: unless-stopped
+    depends_on:
+      - headscale
+    volumes:
+      - ./headplane/config.yaml:/etc/headplane/config.yaml
+      - ./headplane/data:/var/lib/headplane
+      - ./config/config.yaml:/etc/headscale/config.yaml
+      - ./config/dns_records.json:/etc/headscale/dns_records.json
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    ports:
+      - 3000:3000
+    # SETUP USING TRAEFIK
+    # networks:
+    #   - traefik_proxy
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.headplane.rule=Host(`headplane.example.com`)"
+    #   - "traefik.http.routers.headplane.tls=true"
+    #   - "traefik.http.routers.headplane.tls.certresolver=letsencrypt"
+    #   - "traefik.http.routers.headplane.entrypoints=websecure"
+    #   - "traefik.http.services.headplane.loadbalancer.server.port=3000"

@@ -7,7 +7,7 @@ services:
     ports:
       - "9042:9042"
     volumes:
-      - data:/var/lib/cassandra/data
+      - data:/var/lib/cassandra
     environment:
       CASSANDRA_USER: ${CASSANDRA_USER}
       CASSANDRA_PASSWORD: ${CASSANDRA_PASSWORD}

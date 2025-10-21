@@ -1,0 +1,24 @@
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    restart: unless-stopped
+    ##! Configure container to depends to
+    # depends_on:
+    #   - prometheus
+    ports:
+      - 3000:3000
+    volumes:
+      - ./provisioning:/etc/grafana/provisioning
+      - ./volume:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GF_SECURITY_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD}
+  ##! Configure docker network to match the environment
+  # networks:
+  # - monitoring
+
+# networks:
+#   monitoring:
+#     name: monitoring
+#     external: true

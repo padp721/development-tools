@@ -1,0 +1,18 @@
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    restart: unless-stopped
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./volume:/prometheus
+    ##! Configure docker network to match the environment
+    # networks:
+      # - monitoring
+
+# networks:
+#   monitoring:
+#     name: monitoring
+#     external: true

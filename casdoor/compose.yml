@@ -8,6 +8,12 @@ services:
     environment:
       GIN_MODE: release
     volumes:
-      - ./volume/conf:/conf
+      - ./conf:/conf
       - ./volume/logs:/logs
       - ./volume/files:/files
+    networks:
+      - postgresql_default
+
+networks:
+  postgresql_default:
+    external: true

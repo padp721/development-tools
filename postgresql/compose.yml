@@ -2,12 +2,14 @@ services:
   postgresql:
     container_name: postgresql
     hostname: postgresql
-    image: postgres:16.9-alpine3.21
+    image: postgres:18-alpine
     restart: unless-stopped
     ports:
       - "5432:5432"
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
-      PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - ./volume:/var/lib/postgresql/data
+      - data:/var/lib/postgresql
+
+volumes:
+  data:

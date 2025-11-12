@@ -2,7 +2,7 @@ services:
   prefect:
     container_name: prefect
     hostname: prefect
-    image: prefecthq/prefect:3.3.0-python3.10
+    image: prefecthq/prefect:3.4.5-python3.10
     restart: unless-stopped
     ports:
       - 4200:4200
@@ -10,5 +10,8 @@ services:
     environment:
       PREFECT_SERVER_API_HOST: 0.0.0.0
       PREFECT_API_URL: http://localhost:4200/api
+      # Add environment below to enable basic auth
+      # PREFECT_SERVER_API_AUTH_STRING: ${PREFECT_SERVER_API_AUTH_STRING}
+      # PREFECT_API_AUTH_STRING: ${PREFECT_API_AUTH_STRING}
     volumes:
       - ./.prefect:/root/.prefect

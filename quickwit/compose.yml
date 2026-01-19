@@ -1,0 +1,13 @@
+services:
+  quickwit:
+    image: quickwit/quickwit:latest
+    container_name: quickwit
+    hostname: quickwit
+    command: run
+    ports:
+      - "7280:7280" # HTTP API
+      - "7281:7281" # OTLP gRPC
+    environment:
+      - QW_ENABLE_OTLP_SERVICE=true
+    volumes:
+      - ./volume/qwdata:/quickwit/qwdata
